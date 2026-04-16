@@ -26,10 +26,13 @@ buttonAddBook.addEventListener("click", (event)=> {
 
     addBookToLibrary(author, title, pages, read);
     ShowBooksOnScreen();
+
+    buttonDelete = document.querySelectorAll(".delete");
+    buttonDelete = Array.from(buttonDelete);
+    buttonDelete.forEach(deleteArrayItem);
+    
     myForm.reset();
 })
-
-
 
 const myLibrary = [];
 
@@ -75,12 +78,12 @@ function ShowBooksOnScreen() {
         let tdTitle = document.createElement("td");
         let tdPages = document.createElement("td");
         let tdRead = document.createElement("td");
+        let tdDelete = document.createElement("td");
+        let buttonDelete = document.createElement("button");
 
-        tdID.textContent = myLibrary[arrayLastIndex]["id"];
-        tdAuthor.textContent = myLibrary[arrayLastIndex]["author"];
-        tdTitle.textContent = myLibrary[arrayLastIndex]["title"];
-        tdPages.textContent = myLibrary[arrayLastIndex]["pages"];
-        tdRead.textContent = myLibrary[arrayLastIndex]["read"];
+        tdID.setAttribute("data-id", `${myLibrary[arrayLastIndex]["id"]}`);
+        buttonDelete.setAttribute("data-id", `${myLibrary[arrayLastIndex]["id"]}`);
+        buttonDelete.setAttribute("class", "delete");
 
         let read; 
         if (myLibrary[arrayLastIndex]["read"] == true) {
@@ -89,11 +92,21 @@ function ShowBooksOnScreen() {
             read = "No"
         }
 
+        tdID.textContent = myLibrary[arrayLastIndex]["id"];
+        tdAuthor.textContent = myLibrary[arrayLastIndex]["author"];
+        tdTitle.textContent = myLibrary[arrayLastIndex]["title"];
+        tdPages.textContent = myLibrary[arrayLastIndex]["pages"];
+        tdRead.textContent = read;
+        buttonDelete.textContent = "Delete";
+
+
         tableRow.appendChild(tdID);
         tableRow.appendChild(tdAuthor);
         tableRow.appendChild(tdTitle);
         tableRow.appendChild(tdPages);
         tableRow.appendChild(tdRead);
+        tableRow.appendChild(tdDelete);
+        tdDelete.appendChild(buttonDelete);
 
     } else {
 
@@ -109,6 +122,8 @@ function ShowBooksOnScreen() {
             let tdTitle = document.createElement("td");
             let tdPages = document.createElement("td");
             let tdRead = document.createElement("td");
+            let tdDelete = document.createElement("td");
+            let buttonDelete = document.createElement("button");
 
             let read; 
             if (singleBook.read == true) {
@@ -117,17 +132,24 @@ function ShowBooksOnScreen() {
                 read = "No"
             }
 
+            tdID.setAttribute("data-id", `${singleBook["id"]}`);
+            buttonDelete.setAttribute("data-id", `${singleBook["id"]}`);
+            buttonDelete.setAttribute("class", "delete");
+
             tdID.textContent = singleBook["id"];
             tdAuthor.textContent = singleBook["author"];
             tdTitle.textContent = singleBook["title"];
             tdPages.textContent = singleBook["pages"];
             tdRead.textContent = read;
+            buttonDelete.textContent = "Delete";
 
             tableRow.appendChild(tdID);
             tableRow.appendChild(tdAuthor);
             tableRow.appendChild(tdTitle);
             tableRow.appendChild(tdPages);
             tableRow.appendChild(tdRead);
+            tableRow.appendChild(tdDelete);
+            tdDelete.appendChild(buttonDelete);
             
         }
     }
@@ -137,3 +159,27 @@ function ShowBooksOnScreen() {
 addBookToLibrary("Coolen Hover", "Verity", 320, true);
 addBookToLibrary("Brian P. Moran e Michael Lennington", "O ano de 12 semanas", 208, false);
 ShowBooksOnScreen();
+
+let buttonDelete = document.querySelectorAll(".delete");
+
+buttonDelete = Array.from(buttonDelete);
+
+buttonDelete.forEach(deleteArrayItem);
+
+function deleteArrayItem(element) {
+    element.addEventListener("click", ()=> {
+
+        let bookUuid = element.dataset.id;
+        let td = element.parentNode;
+        let tr = td.parentNode;
+        
+        tr.remove()
+
+        let bookIndex = myLibrary.findIndex((book)=>{
+            return book.id == bookUuid;
+        })
+
+        myLibrary.splice(bookIndex, 1);
+
+    });
+}
