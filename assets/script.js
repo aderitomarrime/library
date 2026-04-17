@@ -27,9 +27,13 @@ buttonAddBook.addEventListener("click", (event)=> {
     addBookToLibrary(author, title, pages, read);
     ShowBooksOnScreen();
 
-    buttonDelete = document.querySelectorAll(".delete");
-    buttonDelete = Array.from(buttonDelete);
-    buttonDelete.forEach(deleteArrayItem);
+    buttonRemove = document.querySelectorAll(".remove");
+    buttonRemove = Array.from(buttonRemove);
+    buttonRemove.forEach(deleteArrayItem);
+
+    buttonToggle = document.querySelectorAll(".toggle");
+    buttonToggle = Array.from(buttonToggle);
+    buttonToggle.forEach(ToggleRead);
     
     myForm.reset();
 })
@@ -47,6 +51,16 @@ function Book(id, author, title, pages, read) {
     this.title = title;
     this.pages = pages;
     this.read = read;
+}
+
+Book.prototype.toggleReadStatus = function() {
+
+    if(this.read == true) {
+        this.read = false;
+    } else {
+        this.read = true;
+    }
+    
 }
 
 function addBookToLibrary(author, title, pages, read) {
@@ -79,11 +93,18 @@ function ShowBooksOnScreen() {
         let tdPages = document.createElement("td");
         let tdRead = document.createElement("td");
         let tdDelete = document.createElement("td");
-        let buttonDelete = document.createElement("button");
+        let tdToggle = document.createElement("td");
+        let buttonRemove = document.createElement("button");
+        let buttonToggle = document.createElement("button");
+
 
         tdID.setAttribute("data-id", `${myLibrary[arrayLastIndex]["id"]}`);
-        buttonDelete.setAttribute("data-id", `${myLibrary[arrayLastIndex]["id"]}`);
-        buttonDelete.setAttribute("class", "delete");
+        buttonRemove.setAttribute("data-id", `${myLibrary[arrayLastIndex]["id"]}`);
+        buttonRemove.setAttribute("class", "remove");
+        buttonToggle.setAttribute("data-id", `${myLibrary[arrayLastIndex]["id"]}`);
+        tdRead.setAttribute("data-id", `${myLibrary[arrayLastIndex]["id"]}`);
+        tdRead.setAttribute("class", "read");
+        buttonToggle.setAttribute("class", "toggle");
 
         let read; 
         if (myLibrary[arrayLastIndex]["read"] == true) {
@@ -97,7 +118,8 @@ function ShowBooksOnScreen() {
         tdTitle.textContent = myLibrary[arrayLastIndex]["title"];
         tdPages.textContent = myLibrary[arrayLastIndex]["pages"];
         tdRead.textContent = read;
-        buttonDelete.textContent = "Delete";
+        buttonRemove.textContent = "Remove";
+        buttonToggle.textContent = "Toggle Read";
 
 
         tableRow.appendChild(tdID);
@@ -106,7 +128,9 @@ function ShowBooksOnScreen() {
         tableRow.appendChild(tdPages);
         tableRow.appendChild(tdRead);
         tableRow.appendChild(tdDelete);
-        tdDelete.appendChild(buttonDelete);
+        tableRow.appendChild(tdToggle);
+        tdDelete.appendChild(buttonRemove);
+        tdToggle.appendChild(buttonToggle);
 
     } else {
 
@@ -123,7 +147,9 @@ function ShowBooksOnScreen() {
             let tdPages = document.createElement("td");
             let tdRead = document.createElement("td");
             let tdDelete = document.createElement("td");
-            let buttonDelete = document.createElement("button");
+            let tdToggle = document.createElement("td");
+            let buttonRemove = document.createElement("button");
+            let buttonToggle = document.createElement("button");
 
             let read; 
             if (singleBook.read == true) {
@@ -133,15 +159,20 @@ function ShowBooksOnScreen() {
             }
 
             tdID.setAttribute("data-id", `${singleBook["id"]}`);
-            buttonDelete.setAttribute("data-id", `${singleBook["id"]}`);
-            buttonDelete.setAttribute("class", "delete");
+            buttonRemove.setAttribute("data-id", `${singleBook["id"]}`);
+            buttonToggle.setAttribute("data-id", `${singleBook["id"]}`);
+            tdRead.setAttribute("data-id", `${singleBook["id"]}`);
+            tdRead.setAttribute("class", "read");
+            buttonRemove.setAttribute("class", "remove");
+            buttonToggle.setAttribute("class", "toggle");
 
             tdID.textContent = singleBook["id"];
             tdAuthor.textContent = singleBook["author"];
             tdTitle.textContent = singleBook["title"];
             tdPages.textContent = singleBook["pages"];
             tdRead.textContent = read;
-            buttonDelete.textContent = "Delete";
+            buttonRemove.textContent = "Remove";
+            buttonToggle.textContent = "Toggle Read";
 
             tableRow.appendChild(tdID);
             tableRow.appendChild(tdAuthor);
@@ -149,7 +180,9 @@ function ShowBooksOnScreen() {
             tableRow.appendChild(tdPages);
             tableRow.appendChild(tdRead);
             tableRow.appendChild(tdDelete);
-            tdDelete.appendChild(buttonDelete);
+            tableRow.appendChild(tdToggle)
+            tdDelete.appendChild(buttonRemove);
+            tdToggle.appendChild(buttonToggle);
             
         }
     }
@@ -160,11 +193,38 @@ addBookToLibrary("Coolen Hover", "Verity", 320, true);
 addBookToLibrary("Brian P. Moran e Michael Lennington", "O ano de 12 semanas", 208, false);
 ShowBooksOnScreen();
 
-let buttonDelete = document.querySelectorAll(".delete");
+let buttonRemove = document.querySelectorAll(".remove");
 
-buttonDelete = Array.from(buttonDelete);
+let buttonToggle = document.querySelectorAll(".toggle");
 
-buttonDelete.forEach(deleteArrayItem);
+buttonRemove = Array.from(buttonRemove);
+buttonToggle = Array.from(buttonToggle);
+
+buttonRemove.forEach(deleteArrayItem);
+buttonToggle.forEach(ToggleRead);
+
+function ToggleRead(element) {
+    element.addEventListener("click", ()=> {
+        let bookUuid = element.dataset.id;
+        let tdRead = document.querySelector(`td[data-id="${bookUuid}"].read`);
+
+        let bookIndex = myLibrary.findIndex((book)=>{
+            return book.id == bookUuid;
+        })
+
+        myLibrary[bookIndex].toggleReadStatus();
+
+        let read; 
+        if (myLibrary[bookIndex]["read"] == true) {
+            read = "Yes";
+        } else {
+            read = "No";
+        }
+
+        tdRead.textContent = `${read}`;
+
+    })
+}
 
 function deleteArrayItem(element) {
     element.addEventListener("click", ()=> {
