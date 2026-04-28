@@ -1,0 +1,150 @@
+:root {
+  line-height: 1.5;
+
+  --too-big-size: 2.5rem;
+  --extra-big-size: 1.6rem;
+  --very-big-size: 1.4rem;
+  --big-size: 1.2rem;
+  --base-size: 1rem;
+  --small-size: 0.8rem;
+  --very-small-size: 0.6rem;
+  --extra-small-size: 1rem;
+}
+
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+	font-family: inherit;
+	font-size: 100%;
+	line-height: 1.15;
+	margin: 0; 
+}
+
+body {
+    font-family: "Roboto", system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    max-width: 1240px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 var(--base-size, 16px);
+    color: #212121;
+    background-color: #F5F5F5;
+    /* background-color: #F9FAFB; */
+}
+
+.header {
+    padding: var(--very-small-size) 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    margin-bottom: var(--extra-small-size);
+}
+
+.header h1 {
+    font-family: "Poppins";
+    font-weight: 300;
+    user-select: none;
+    font-size: clamp(var(--very-small-size), var(--extra-big-size) + 1vw, var(--extra-big-size) + 2rem);
+}
+
+.main .button {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: var(--base-size);
+}
+
+.main .button button {
+    background: transparent;
+    border: none;
+    background-color: #118AB2;
+    padding: 10px var(--extra-big-size);
+    cursor: pointer;
+    border-radius: 9999px;
+    color: #FFFFFF;
+    font-weight: bold;
+    font-size: clamp(var(--extra-small-size), var(--base-size) + 0.08vw, var(--very-big-size));
+}
+
+.main .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--extra-big-size);
+}
+
+.main .cards .card {
+    background-color: #FFFFFF;
+    border-radius: var(--very-small-size);
+    padding: var(--very-small-size);
+}
+
+.main .cards .card .card-header {
+    border-bottom: 1px solid #E5E7EB ;
+    margin-bottom: var(--very-small-size);
+}
+
+.main .cards .card .card-header h1 {
+    /* font-weight: 700; */
+    font-size: clamp(var(--extra-small-size), var(--very-big-size) + 0.01vw, var(--very-big-size));
+}
+
+.main .cards .card .card-header h2 {
+    /* font-weight: 500; */
+    font-size: clamp(var(--extra-small-size), var(--base-size) + 0.01vw, var(--very-big-size));
+}
+
+.main .cards .card .card-body {
+    margin-bottom: var(--base-size);
+}
+
+.main .cards .card .card-body p {
+    font-size: var(--base-size);
+}
+
+.main .cards .card .card-footer {
+    display: flex;
+    justify-content: space-between;
+    column-gap: var(--extra-small-size);
+}
+
+.main .cards .card .card-footer button {
+    width: 50%;
+    border: none;
+    background-color: #dc493a;
+    padding: 6px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #FFFFFF;
+    font-size: clamp(var(--extra-small-size), var(--base-size) + 0.01vw, var(--very-big-size));
+}
+
+.main .cards .card .card-footer button:last-child {
+    background-color: transparent;
+    color: #212121;
+    border: 2px solid #dc493a;
+    color: #212121;
+}
+
+@media (min-width: 670px) {
+    .main .cards .card {
+        max-width: 450px;
+    }
+}
