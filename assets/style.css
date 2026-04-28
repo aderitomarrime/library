@@ -75,13 +75,18 @@ body {
 .main .button button {
     background: transparent;
     border: none;
-    background-color: #118AB2;
+    background-color: #121420;
     padding: 10px var(--extra-big-size);
     cursor: pointer;
     border-radius: 9999px;
     color: #FFFFFF;
     font-weight: bold;
     font-size: clamp(var(--extra-small-size), var(--base-size) + 0.08vw, var(--very-big-size));
+    transition: ease-in-out 0.2s;
+}
+
+.main .button button:hover {
+    opacity: 0.9;
 }
 
 .main .cards {
@@ -94,6 +99,7 @@ body {
     background-color: #FFFFFF;
     border-radius: var(--very-small-size);
     padding: var(--very-small-size);
+    box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.08);
 }
 
 .main .cards .card .card-header {
@@ -134,13 +140,16 @@ body {
     cursor: pointer;
     color: #FFFFFF;
     font-size: clamp(var(--extra-small-size), var(--base-size) + 0.01vw, var(--very-big-size));
+    transition: ease-in-out 0.2s;
+}
+
+.main .cards .card .card-footer button:hover {
+    opacity: 0.9;
 }
 
 .main .cards .card .card-footer button:last-child {
-    background-color: transparent;
-    color: #212121;
-    border: 2px solid #dc493a;
-    color: #212121;
+    background-color: #118AB2;
+    color: #FFFFFF;
 }
 
 @media (min-width: 670px) {
