@@ -50,6 +50,7 @@ body {
     padding: 0 var(--base-size, 16px);
     color: #212121;
     background-color: #F5F5F5;
+    padding-bottom: var(--base-size);
     /* background-color: #F9FAFB; */
 }
 
