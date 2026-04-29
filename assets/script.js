@@ -1,4 +1,4 @@
-let tbody = document.querySelector("tbody")
+let cards = document.querySelector(".cards")
 let myDialog = document.querySelector("dialog");
 let buttonOpenDialog = document.querySelector(".open-dialog");
 let buttonAddBook = document.querySelector(".buttons button:last-child");
@@ -71,16 +71,18 @@ function addBookToLibrary(author, title, pages, read) {
     myLibrary.push(book);
 }
 
-function wipeDisplay(td) {
-    td.remove();
+function wipeDisplay(element) {
+    element.remove();
 }
 
 function ShowBooksOnScreen() {
 
-    let tabletds = document.querySelectorAll("tbody tr td");
-    tabletds = Array.from(tabletds);
+    let allCards = document.querySelectorAll(".main .cads .card");
+    allCards = Array.from(allCards);
 
     if(myLibrary.length > 2) {
+
+        console.log(1)
 
         let tableRow = document.createElement("tr");
         tbody.appendChild(tableRow);
@@ -134,56 +136,67 @@ function ShowBooksOnScreen() {
 
     } else {
 
-        tabletds.forEach(wipeDisplay)
+        allCards.forEach(wipeDisplay)
 
         for (const singleBook of myLibrary) {
 
-            let tableRow = document.createElement("tr");
-            tbody.appendChild(tableRow);
+            let card = document.createElement("div");
+            card.classList.add("card")
+            cards.appendChild(card);
 
-            let tdID = document.createElement("td");
-            let tdAuthor = document.createElement("td");
-            let tdTitle = document.createElement("td");
-            let tdPages = document.createElement("td");
-            let tdRead = document.createElement("td");
-            let tdDelete = document.createElement("td");
-            let tdToggle = document.createElement("td");
+            let cardHeader = document.createElement("div");
+            let cardBody = document.createElement("div");
+            let cardFooter = document.createElement("div");
+
+            cardHeader.classList.add("card-header");
+            cardBody.classList.add("card-body");
+            cardFooter.classList.add("card-footer");
+
+            let title = document.createElement("h1");
+            let author = document.createElement("h2");
+
+            let pages = document.createElement("p");
+            let read = document.createElement("p");
+
             let buttonRemove = document.createElement("button");
             let buttonToggle = document.createElement("button");
 
-            let read; 
+            let readStaus; 
             if (singleBook.read == true) {
-                read = "Yes";
+                readStaus = "Yes";
             } else {
-                read = "No"
+                readStaus = "No"
             }
 
-            tdID.setAttribute("data-id", `${singleBook["id"]}`);
             buttonRemove.setAttribute("data-id", `${singleBook["id"]}`);
             buttonToggle.setAttribute("data-id", `${singleBook["id"]}`);
-            tdRead.setAttribute("data-id", `${singleBook["id"]}`);
-            tdRead.setAttribute("class", "read");
+            read.setAttribute("data-id", `${singleBook["id"]}`);
+            read.setAttribute("class", "read");
             buttonRemove.setAttribute("class", "remove");
             buttonToggle.setAttribute("class", "toggle");
 
-            tdID.textContent = singleBook["id"];
-            tdAuthor.textContent = singleBook["author"];
-            tdTitle.textContent = singleBook["title"];
-            tdPages.textContent = singleBook["pages"];
-            tdRead.textContent = read;
+            author.textContent = singleBook["author"];
+            title.textContent = singleBook["title"];
+
+            pages.textContent = `Pages: ${singleBook["pages"]}`;
+            read.textContent = `Read: ${readStaus}`;
+            
             buttonRemove.textContent = "Remove";
             buttonToggle.textContent = "Toggle Read";
 
-            tableRow.appendChild(tdID);
-            tableRow.appendChild(tdAuthor);
-            tableRow.appendChild(tdTitle);
-            tableRow.appendChild(tdPages);
-            tableRow.appendChild(tdRead);
-            tableRow.appendChild(tdDelete);
-            tableRow.appendChild(tdToggle)
-            tdDelete.appendChild(buttonRemove);
-            tdToggle.appendChild(buttonToggle);
-            
+            cards.appendChild(card);
+
+            card.appendChild(cardHeader);
+            cardHeader.appendChild(title);
+            cardHeader.appendChild(author);
+
+            card.appendChild(cardBody);
+            cardBody.appendChild(pages);
+            cardBody.appendChild(read);
+
+            card.appendChild(cardFooter);
+            cardFooter.appendChild(buttonRemove);
+            cardFooter.appendChild(buttonToggle);
         }
     }
 
@@ -206,7 +219,7 @@ buttonToggle.forEach(ToggleRead);
 function ToggleRead(element) {
     element.addEventListener("click", ()=> {
         let bookUuid = element.dataset.id;
-        let tdRead = document.querySelector(`td[data-id="${bookUuid}"].read`);
+        let read = document.querySelector(`p[data-id="${bookUuid}"].read`);
 
         let bookIndex = myLibrary.findIndex((book)=>{
             return book.id == bookUuid;
@@ -214,14 +227,14 @@ function ToggleRead(element) {
 
         myLibrary[bookIndex].toggleReadStatus();
 
-        let read; 
+        let readStaus; 
         if (myLibrary[bookIndex]["read"] == true) {
-            read = "Yes";
+            readStaus = "Yes";
         } else {
-            read = "No";
+            readStaus = "No";
         }
 
-        tdRead.textContent = `${read}`;
+        read.textContent = `Read: ${readStaus}`;
 
     })
 }
@@ -230,10 +243,10 @@ function deleteArrayItem(element) {
     element.addEventListener("click", ()=> {
 
         let bookUuid = element.dataset.id;
-        let td = element.parentNode;
-        let tr = td.parentNode;
+        let cardFooter = element.parentNode;
+        let card = cardFooter.parentNode;
         
-        tr.remove()
+        card.remove()
 
         let bookIndex = myLibrary.findIndex((book)=>{
             return book.id == bookUuid;
