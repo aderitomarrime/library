@@ -9,9 +9,6 @@ buttonOpenDialog.addEventListener("click", ()=> {
 })
 
 buttonAddBook.addEventListener("click", (event)=> {
-    event.preventDefault();
-
-    myDialog.close()
 
     let author = document.querySelector("#author").value;
     let title = document.querySelector("#title").value;
@@ -27,7 +24,9 @@ buttonAddBook.addEventListener("click", (event)=> {
     addBookToLibrary(author, title, pages, read);
     ShowBooksOnScreen();
     
+    event.preventDefault();
     myForm.reset();
+    myDialog.close()
 })
 
 const myLibrary = [];
