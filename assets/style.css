@@ -43,7 +43,7 @@ textarea {
 }
 
 body {
-    font-family: "Roboto", system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     max-width: 1240px;
     margin: 0 auto;
     width: 100%;
@@ -51,7 +51,6 @@ body {
     color: #212121;
     background-color: #F5F5F5;
     padding-bottom: var(--base-size);
-    /* background-color: #F9FAFB; */
 }
 
 .header {
@@ -61,7 +60,6 @@ body {
 }
 
 .header h1 {
-    font-family: "Poppins";
     font-weight: 300;
     user-select: none;
     font-size: clamp(var(--very-small-size), var(--extra-big-size) + 1vw, var(--extra-big-size) + 2rem);
@@ -101,6 +99,8 @@ body {
     border-radius: var(--very-small-size);
     padding: var(--very-small-size);
     box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
 }
 
 .main .cards .card .card-header {
@@ -109,17 +109,16 @@ body {
 }
 
 .main .cards .card .card-header h1 {
-    /* font-weight: 700; */
     font-size: clamp(var(--extra-small-size), var(--very-big-size) + 0.01vw, var(--very-big-size));
 }
 
 .main .cards .card .card-header h2 {
-    /* font-weight: 500; */
     font-size: clamp(var(--extra-small-size), var(--base-size) + 0.01vw, var(--very-big-size));
 }
 
 .main .cards .card .card-body {
     margin-bottom: var(--base-size);
+    flex: 1;
 }
 
 .main .cards .card .card-body p {
@@ -151,5 +150,99 @@ body {
 .main .cards .card .card-footer button:last-child {
     background-color: #118AB2;
     color: #FFFFFF;
+}
+
+dialog {
+    border: none;
+    border-radius: var(--small-size);
+    padding: var(--big-size);
+}
+
+dialog form .form-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    margin-bottom: 16px;
+    padding-bottom: 6px;
+}
+
+dialog form .form-header h1 {
+    font-weight: 500;
+    font-size: clamp(var(--extra-small-size), var(--very-big-size) + 0.01vw, var(--very-big-size));
+    color: #121420;
+
+}
+
+dialog form .form-header p {
+    font-weight: 400;
+    font-size: clamp(var(--extra-small-size), var(--very-small-size) + 0.01vw, var(--very-big-size));
+    color: #212121;
+}
+
+dialog div:not(.form-header, .buttons) {
+    display: flex;
+    flex-direction: column;
+}
+
+dialog form label {
+    font-weight: 400;
+    color: #212121;
+}
+
+dialog form input {
+    border-radius: 9999px;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    padding: 6px var(--base-size);
+    margin-bottom: 6px;
+}
+
+dialog form input:focus:not(input[type="radio"]) {
+    border: 1px solid #118AB2;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+    outline: none;
+}
+
+dialog form input[type="radio"] {
+    accent-color: #118AB2;
+}
+
+dialog form fieldset {
+    border: none;
+    display: flex;
+    align-items: end;
+}
+
+pre {
+    font-size: inherit;
+    font-family: inherit;
+    font-weight: inherit;
+    font-style: inherit;
+}
+
+dialog form .buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+dialog form .buttons button {
+    border: none;
+    background-color: #dc493a;
+    padding: 6px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #FFFFFF;
+    font-size: clamp(var(--extra-small-size), var(--base-size) + 0.01vw, var(--very-big-size));
+    transition: ease-in-out 0.2s;
+}
+
+dialog form .buttons button:last-child {
+    background-color: #118AB2;
+}
+
+dialog form .buttons button:hover {
+    opacity: 0.9;
+}
+
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
