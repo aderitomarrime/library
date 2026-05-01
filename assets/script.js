@@ -73,9 +73,6 @@ function wipeDisplay(element) {
 
 function ShowBooksOnScreen() {
 
-    let allCards = document.querySelectorAll(".main .cads .card");
-    allCards = Array.from(allCards);
-
     if(myLibrary.length > 2) {
 
         let card = document.createElement("div");
@@ -142,7 +139,12 @@ function ShowBooksOnScreen() {
 
     } else {
 
-        allCards.forEach(wipeDisplay)
+        let allCards = document.querySelectorAll("div .card");
+        allCards = Array.from(allCards);
+
+        if(allCards.length == 1) {
+            allCards.forEach(wipeDisplay);
+        }
 
         for (const singleBook of myLibrary) {
 
@@ -206,6 +208,7 @@ function ShowBooksOnScreen() {
             card.appendChild(cardFooter);
             cardFooter.appendChild(buttonRemove);
             cardFooter.appendChild(buttonToggle);
+
         }
     }
 
