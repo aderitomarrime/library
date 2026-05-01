@@ -1,11 +1,16 @@
 let cards = document.querySelector(".cards")
 let myDialog = document.querySelector("dialog");
 let buttonOpenDialog = document.querySelector(".open-dialog");
+let buttonCancel = document.querySelector("button[formmethod='dialog']");
 let buttonAddBook = document.querySelector(".buttons button:last-child");
 let myForm = document.querySelector("form");
 
 buttonOpenDialog.addEventListener("click", ()=> {
     myDialog.showModal();
+})
+
+buttonCancel.addEventListener("click", ()=> {
+    myDialog.close();
 })
 
 buttonAddBook.addEventListener("click", (event)=> {
