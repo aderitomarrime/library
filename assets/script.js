@@ -36,27 +36,18 @@ buttonAddBook.addEventListener("click", (event)=> {
 
 const myLibrary = [];
 
-function Book(id, author, title, pages, read) {
-
-    if(!new.target) {
-        throw Error("You must use the 'new' operator to call the constructor");
+class Book {
+    constructor(id, author, title, pages, read) {
+        this.id = id;
+        this.author = author;
+        this.title = title;
+        this.pages = pages;
+        this.read = read;
     }
 
-    this.id = id;
-    this.author = author;
-    this.title = title;
-    this.pages = pages;
-    this.read = read;
-}
-
-Book.prototype.toggleReadStatus = function() {
-
-    if(this.read == true) {
-        this.read = false;
-    } else {
-        this.read = true;
+    toggleReadStatus() {
+        this.read = !this.read;
     }
-    
 }
 
 function addBookToLibrary(author, title, pages, read) {
