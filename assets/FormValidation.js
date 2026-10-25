@@ -16,6 +16,14 @@ class FormValidation {
         }
     }
 
+    static checkBadInput(element) {
+        if(element.validity.badInput){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
     static checkLength(element) {
         if(element.validity.tooShort){
             return true;

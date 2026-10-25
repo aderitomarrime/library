@@ -11,7 +11,6 @@ class DomManipulation {
         inputs.forEach((input)=> {
             input.addEventListener("input", (event)=>{
                 DomManipulation.checkInput(event.target);
-                console.log(1);
             })
         })
 
@@ -25,23 +24,35 @@ class DomManipulation {
             inputs.forEach(element=>{
                 if(element.type == "text" || element.type == "number" || element.type == "radio") {
 
-                    //if the user doesnt insert a value show error message
-                    if(FormValidation.checkRequired(element)) {
-                        if(element.type == "radio" ) {
-                            this.displayErrorMessage(element.parentNode, element.dataset.required);
-                        }else {
+                    if(element.type == "number") {
+  
+                        if(FormValidation.checkBadInput(element)) {
+                            this.displayErrorMessage(element, element.dataset.number);
+                            result = true;
+                        }else if(FormValidation.checkRequired(element)) {
                             this.displayErrorMessage(element, element.dataset.required);
-                        }
-                        result = true;
-                    }else{
-                        if(element.type == "radio" ) {
-                            this.removeErrorMessage(element.parentNode);
-                        }else {
+                            result = true;
+                        }else{
                             this.removeErrorMessage(element);
+                            result += false;
                         }
-                        result += false;
-                    }
-                } 
+                    //if the user doesnt insert or insert a invalid email show error message
+                    }else if(FormValidation.checkRequired(element)) {
+                            if(element.type == "radio" ) {
+                                this.displayErrorMessage(element.parentNode, element.dataset.required);
+                            }else {
+                                this.displayErrorMessage(element, element.dataset.required);
+                            }
+                            result = true;
+                        }else{
+                            if(element.type == "radio" ) {
+                                this.removeErrorMessage(element.parentNode);
+                            }else {
+                                this.removeErrorMessage(element);
+                            }
+                            result += false;
+                        }
+                    } 
             })
 
             if(!result){
@@ -56,9 +67,21 @@ class DomManipulation {
         //check email input
         let result;
         if(element.type == "text" || element.type == "number" || element.type == "radio") {
-
-            //if the user doesnt insert or insert a invalid email show error message
-            if(FormValidation.checkRequired(element)) {
+            
+            if(element.type == "number") {
+  
+                if(FormValidation.checkBadInput(element)) {
+                    this.displayErrorMessage(element, element.dataset.number);
+                    result = true;
+                }else if(FormValidation.checkRequired(element)) {
+                    this.displayErrorMessage(element, element.dataset.required);
+                    result = true;
+                }else{
+                    this.removeErrorMessage(element);
+                    result += false;
+                }
+                //if the user doesnt insert or insert a invalid email show error message
+            }else if(FormValidation.checkRequired(element)) {
                 this.displayErrorMessage(element, element.dataset.required);
                 result = true;
             }else{
