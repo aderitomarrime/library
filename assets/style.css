@@ -200,6 +200,25 @@ dialog form input:focus:not(input[type="radio"]) {
     outline: none;
 }
 
+dialog form input:user-invalid:not(input[type="radio"]) {
+    border: 1px solid red
+}
+
+dialog form input:user-valid:not(input[type="radio"]) {
+    border: 1px solid green;
+}
+
+dialog form .error {
+    color: rgb(178, 19, 19);
+    margin-top: 1px;
+    margin-bottom: 4px;
+    font-size: 14px;
+}
+
+dialog form .error:empty {
+    display: none;
+}
+
 dialog form input[type="radio"] {
     accent-color: #118AB2;
 }
@@ -207,7 +226,17 @@ dialog form input[type="radio"] {
 dialog form fieldset {
     border: none;
     display: flex;
-    align-items: end;
+    flex-direction: column;
+}
+
+dialog form fieldset .group {
+    display: flex;
+    flex-direction: row;
+}
+
+dialog form fieldset .group input {
+    position: relative;
+    top: 3px;
 }
 
 pre {

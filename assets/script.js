@@ -1,3 +1,5 @@
+import { DomManipulation } from "./DomManipulation.js";
+
 let cards = document.querySelector(".cards")
 let myDialog = document.querySelector("dialog");
 let buttonOpenDialog = document.querySelector(".open-dialog");
@@ -13,8 +15,7 @@ buttonCancel.addEventListener("click", ()=> {
     myDialog.close();
 })
 
-buttonAddBook.addEventListener("click", (event)=> {
-
+function addBook(){
     let author = document.querySelector("#author").value;
     let title = document.querySelector("#title").value;
     let pages = document.querySelector("#pages").value;
@@ -29,10 +30,9 @@ buttonAddBook.addEventListener("click", (event)=> {
     addBookToLibrary(author, title, pages, read);
     ShowBooksOnScreen();
     
-    event.preventDefault();
     myForm.reset();
     myDialog.close()
-})
+}
 
 const myLibrary = [];
 
@@ -246,3 +246,7 @@ function deleteArrayItem(event) {
     myLibrary.splice(bookIndex, 1);
 
 }
+
+DomManipulation.addEventListenners();
+
+export { addBook }
